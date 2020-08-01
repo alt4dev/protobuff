@@ -5,7 +5,7 @@ service Alt4Logging {
   // Creates a log
   rpc Log(Message) returns (Result) {}
   // Creates/Updates a log group
-  rpc PutGroup(Group) returns (Result) {}
+  rpc LogGroup(Group) returns (Result) {}
 }
 
 
