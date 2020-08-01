@@ -2,7 +2,11 @@
 
 function golang_build(){
     echo "Building go lang"
-    protoc --proto_path=./ --go_out=./ --go_opt=paths=source_relative definitions.proto
+    if [ -e proto ]; then
+        rm -r proto
+    fi
+    mkdir proto
+    protoc --proto_path=./ --go_out=proto/ --go_opt=paths=source_relative definitions.proto
 }
 
 function build_help(){
