@@ -6,7 +6,10 @@ function golang_build(){
         rm -r proto
     fi
     mkdir proto
-    protoc --proto_path=./ --go_out=proto/ --go_opt=paths=source_relative definitions.proto
+    protoc --proto_path=./ \
+        --go_out=plugins=grpc:proto/ \
+        --go_opt=paths=source_relative definitions.proto
+    echo "Done."
 }
 
 function build_help(){
