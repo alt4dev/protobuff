@@ -1,7 +1,8 @@
 syntax="proto3";
 package proto;
+option go_package = ".;proto";
 
-service Alt4Logging {
+service Logging {
   // Creates a log
   rpc Log(Message) returns (Result) {}
   // Creates/Updates a log group
