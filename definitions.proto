@@ -29,8 +29,9 @@ message Group {
 }
 
 message Claim {
+  // Data types: {0: unknown, 1: int, 2: float, 3: boolean, 4: string, 5: timestamp,}
   uint32 dataType = 1;
-  uint32 name = 2;
+  string name = 2;
   string value = 3;
 }
 
