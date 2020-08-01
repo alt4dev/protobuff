@@ -1,0 +1,35 @@
+service Alt4Logging {
+  // Creates a log
+  rpc Log(LogMessage) returns (LogReturn) {}
+  // Creates/Updates a log group
+  rpc LogGroup(LogGroup) returns (LogGroup) {}
+}
+
+
+message LogMessage {
+  required string instanceId = 1;
+  required string threadId = 2;
+  required uint64 timestamp = 3;
+  required string message = 4;
+  required uint32 level = 5;
+  required string fileName = 6;
+  required uint32 lineNo = 7;
+  repeated LogClaim claims = 8;
+}
+
+message LogGroup {
+  required string threadId = 1;
+  required string title = 2;
+  required string startTime = 3;
+  repeated LogClaim claims = 4;
+}
+
+message LogClaim {
+  required uint32 dataType = 1;
+  required uint32 name = 2;
+  required string value = 3;
+}
+
+message LogReturn {
+  required bool acknowledged = 1;
+}
