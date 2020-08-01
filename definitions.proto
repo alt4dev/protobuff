@@ -1,35 +1,39 @@
+syntax="proto3";
+option go_package = "github.com/alt4dev/go;_go";
+
 service Alt4Logging {
   // Creates a log
-  rpc Log(LogMessage) returns (LogReturn) {}
+  rpc Log(Message) returns (Result) {}
   // Creates/Updates a log group
-  rpc LogGroup(LogGroup) returns (LogGroup) {}
+  rpc PutGroup(Group) returns (Result) {}
 }
 
 
-message LogMessage {
-  required string instanceId = 1;
-  required string threadId = 2;
-  required uint64 timestamp = 3;
-  required string message = 4;
-  required uint32 level = 5;
-  required string fileName = 6;
-  required uint32 lineNo = 7;
-  repeated LogClaim claims = 8;
+message Message {
+  string instanceId = 1;
+  string threadId = 2;
+  uint64 timestamp = 3;
+  string message = 4;
+  uint32 level = 5;
+  string fileName = 6;
+  uint32 lineNo = 7;
+  repeated Claim claims = 8;
 }
 
-message LogGroup {
-  required string threadId = 1;
-  required string title = 2;
-  required string startTime = 3;
-  repeated LogClaim claims = 4;
+message Group {
+  string instanceId = 1;
+  string threadId = 2;
+  string title = 3;
+  string startTime = 4;
+  repeated Claim claims = 5;
 }
 
-message LogClaim {
-  required uint32 dataType = 1;
-  required uint32 name = 2;
-  required string value = 3;
+message Claim {
+  uint32 dataType = 1;
+  uint32 name = 2;
+  string value = 3;
 }
 
-message LogReturn {
-  required bool acknowledged = 1;
+message Result {
+  bool acknowledged = 1;
 }
