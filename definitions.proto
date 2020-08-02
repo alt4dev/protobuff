@@ -19,6 +19,7 @@ message Message {
   uint32 level = 5;
   string fileName = 6;
   uint32 lineNo = 7;
+  string function = 9;
   repeated Claim claims = 8;
 }
 
