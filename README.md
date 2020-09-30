@@ -18,3 +18,12 @@ Instead we'd recommend you use the ready-made client libraries*
 # Go Lang
 ./build.sh go
 ```
+
+### Usage
+This section refers to code that is generated and ready to be used publicly
+
+#### Golang
+In your project install:
+```shell script
+go get github.com/alt4dev/protobuff
+```
