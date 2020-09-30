@@ -5,34 +5,26 @@ option go_package = ".;proto";
 service Logging {
   // Creates a log
   rpc Log(Message) returns (Result) {}
-  // Creates/Updates a log group
-  rpc LogGroup(Group) returns (Result) {}
 }
 
 
 message Message {
-  string instanceId = 1;
-  string threadId = 2;
-  uint64 timestamp = 3;
+  string threadId = 1;
+  string sinkId = 2;
+  bool threadInit = 3;
   string message = 4;
-  // Levels {0: Info, 1: Debug, 2: Warning, 3: Error, 4: Fatal}
-  uint32 level = 5;
+  repeated Claim claims = 5;
   string fileName = 6;
   uint32 lineNo = 7;
-  string function = 9;
-  repeated Claim claims = 8;
-}
+  string function = 8;
+  // Levels {0: Info, 1: Debug, 2: Warning, 3: Error, 4: Fatal}
+  uint32 level = 9;
+  uint64 timestamp = 10;
 
-message Group {
-  string instanceId = 1;
-  string threadId = 2;
-  string title = 3;
-  string startTime = 4;
-  repeated Claim claims = 5;
 }
 
 message Claim {
-  // Data types: {0: unknown, 1: int, 2: float, 3: boolean, 4: string, 5: timestamp, 6: uint}
+  // Data types: {0: unknown, 1: number, 3: boolean, 4: string, 5: timestamp}
   uint32 dataType = 1;
   string name = 2;
   string value = 3;
@@ -40,4 +32,5 @@ message Claim {
 
 message Result {
   bool acknowledged = 1;
+  string message = 2;
 }
