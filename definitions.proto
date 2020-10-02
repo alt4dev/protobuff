@@ -20,6 +20,7 @@ message Message {
   // Levels {0: Info, 1: Debug, 2: Warning, 3: Error, 4: Fatal}
   uint32 level = 9;
   uint64 timestamp = 10;
+  string authToken = 11;
 
 }
 
