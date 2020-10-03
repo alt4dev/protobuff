@@ -25,7 +25,7 @@ message Message {
 }
 
 message Claim {
-  // Data types: {0: unknown, 1: number, 3: boolean, 4: string, 5: timestamp}
+  // Data types: {0: unknown, 1: number, 2: boolean, 4: string}
   uint32 dataType = 1;
   string name = 2;
   string value = 3;
