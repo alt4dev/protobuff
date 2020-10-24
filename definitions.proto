@@ -1,37 +1,97 @@
-syntax="proto3";
+syntax = "proto3";
 package proto;
 option go_package = ".;proto";
 
 service Logging {
   // Creates a log
   rpc Log(Message) returns (Result) {}
+  // Creates an audit log
+  rpc Audit(AuditMessage) returns (Result) {}
+  // Query audit logs for reporting or something
+  rpc AuditQuery(Query) returns (QueryResult) {}
 }
 
-
 message Message {
-  string threadId = 1;
-  string sinkId = 2;
-  bool threadInit = 3;
-  string message = 4;
-  repeated Claim claims = 5;
-  string fileName = 6;
-  uint32 lineNo = 7;
-  string function = 8;
-  // Levels {0: Info, 1: Debug, 2: Warning, 3: Error, 4: Fatal}
-  uint32 level = 9;
-  uint64 timestamp = 10;
-  string authToken = 11;
-
+  string source = 1;
+  string thread = 2;
+  string message = 3;
+  repeated Claim claims = 4;
+  string file = 5;
+  uint32 line = 6;
+  string method = 7;
+  enum Level {
+    NONE = 0;
+    INFO = 1;
+    DEBUG = 2;
+    WARNING = 3;
+    ERROR = 4;
+    FATAL = 5;
+    CRITICAL = 6;
+  }
+  Level level = 8;
+  uint64 timestamp = 9;
 }
 
 message Claim {
-  // Data types: {0: unknown, 1: number, 3: boolean, 4: string, 5: timestamp}
-  uint32 dataType = 1;
+  enum Type {
+    STRING = 0;
+    NUMBER = 1;
+    BOOLEAN = 2;
+    TIMESTAMP = 3;
+  }
+  Type type = 1;
   string name = 2;
   string value = 3;
 }
 
 message Result {
-  bool acknowledged = 1;
+  enum Status {
+    ACKNOWLEDGED = 0;
+    UNAUTHORIZED = 1;
+    ACCESS_DENIED = 2;
+    INTERNAL_ERROR = 3;
+  };
+  Status status = 1;
   string message = 2;
+}
+
+message AuditMessage {
+  string message = 1;
+  repeated Claim claims = 2;
+  string topic = 3;
+  uint64 timestamp = 4;
+}
+
+message Condition {
+  enum Comparison {
+    EQUAL = 0;
+    NOT_EQUAL = 1;
+    GREATER_THAN = 2;
+    GREATER_OR_EQUAL = 3;
+    LESS_THAN = 4;
+    LESS_OR_EQUAL = 5;
+  }
+  string field = 1;
+  Comparison comparison = 2;
+  string value = 3;
+}
+
+message Query {
+  string topic = 1;
+  repeated Condition conditions = 2;
+  string cursor = 3;
+}
+
+message QueryResult {
+  enum QueryStatus {
+    SUCCESS = 0;
+    UNAUTHORIZED = 1;
+    ACCESS_DENIED = 3;
+    QUERY_ERROR = 4;
+    INTERNAL_ERROR = 5;
+  }
+  QueryResult status = 1;
+  string message = 2;
+  repeated AuditMessage messages = 3;
+  string cursor = 4;
 }
