@@ -26,7 +26,6 @@ message Message {
     WARNING = 3;
     ERROR = 4;
     FATAL = 5;
-    CRITICAL = 6;
   }
   Level level = 8;
   uint64 timestamp = 9;
