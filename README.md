@@ -23,7 +23,9 @@ Instead we'd recommend you use the ready-made client libraries*
 This section refers to code that is generated and ready to be used publicly
 
 #### Golang
-In your project install:
+In your project install.
 ```shell script
 go get github.com/alt4dev/protobuff
 ```
+It's advisable to use our [golang library](https://github.com/alt4dev/go) instead
+which implements these buffers.
