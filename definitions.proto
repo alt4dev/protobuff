@@ -18,7 +18,7 @@ message Message {
   repeated Claim claims = 4;
   string file = 5;
   uint32 line = 6;
-  string method = 7;
+  string function = 7;
   enum Level {
     NONE = 0;
     INFO = 1;
