@@ -4,14 +4,14 @@ option go_package = ".;proto";
 
 service Logging {
   // Creates a log
-  rpc Log(Message) returns (Result) {}
+  rpc WriteLog(Log) returns (Result) {}
   // Creates an audit log
-  rpc Audit(AuditMessage) returns (Result) {}
+  rpc WriteAuditLog(AuditLog) returns (Result) {}
   // Query audit logs for reporting or something
   rpc AuditQuery(Query) returns (QueryResult) {}
 }
 
-message Message {
+message Log {
   string source = 1;
   string thread = 2;
   string message = 3;
@@ -54,7 +54,7 @@ message Result {
   string message = 2;
 }
 
-message AuditMessage {
+message AuditLog {
   string message = 1;
   repeated Claim claims = 2;
   string topic = 3;
@@ -91,6 +91,6 @@ message QueryResult {
   }
   QueryResult status = 1;
   string message = 2;
-  repeated AuditMessage messages = 3;
+  repeated AuditLog logs = 3;
   string cursor = 4;
 }
