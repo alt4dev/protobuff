@@ -29,11 +29,7 @@ message Log {
   }
   Level level = 8;
   uint64 timestamp = 9;
-  enum Type {
-    LOG = 0;
-    GROUP = 1;
-  }
-  Type type = 10;
+  bool group = 10;
 }
 
 message Claim {
